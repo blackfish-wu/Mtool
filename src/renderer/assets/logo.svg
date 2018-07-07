@@ -1,0 +1,32 @@
+<svg width="100" height="110.00000000000001" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+ <defs>
+  <linearGradient y2="0" x2="1" y1="0" x1="0" id="svg_11">
+   <stop offset="0" stop-color="#0099ff"/>
+   <stop offset="1" stop-color="#ff6600"/>
+  </linearGradient>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="112" width="102" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="1" x="1" height="480" width="640"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <defs>
+   <g id="svg_4">
+    <path id="svg_6" d="m300.55,193.75q9.95,-10 9.85,-24.05q0.05,-14.05 -9.9,-24q-10,-10.05 -24,-10.05l0,34.1l-24.05,-24.05q-10,9.95 -10.05,24.05q0.05,14 10.05,24.05q9.95,9.95 23.95,9.95q14.15,-0.05 24.15,-10m69.35,-28.55q0,-0.7 0,-1.35q-0.45,-38.4 -27.7,-65.65q-15.95,-15.95 -35.75,-22.85q-0.1,0 -0.35,0q-14.25,-4.9 -30.45,-5q-0.25,0 -0.6,0q-16.7,0 -31.3,5q-0.25,0.15 -0.5,0.25q-19.5,6.75 -35.35,22.6q-27.25,27.25 -27.75,65.65q0,0.65 0,1.35q0,5.65 0.65,11.2q0.45,4.75 1.45,9.55q3.3,15.6 11.65,29q1.35,2.2 2.85,4.25l68.95,104.95q0.15,0.25 0.4,0.5q0.6,0.85 1.35,1.6q3.4,3.45 8.1,3.45l0.1,0q4.65,-0.15 8,-3.45q0.85,-0.85 1.6,-1.95q0.25,-0.25 0.35,-0.6l49.7,-76.6l-31.25,-31.25q-12.4,7.75 -28.05,7.8q-22.1,0 -37.75,-15.65q-15.65,-15.7 -15.7,-37.85q0,-22.2 15.65,-37.85q15.65,-15.65 37.85,-15.65q22.2,0 37.85,15.7q15.65,15.65 15.6,37.8q0.05,15.05 -7.2,27.1l27.5,27.5l3.8,-5.9q1.35,-1.95 2.7,-4.05q8.6,-13.75 11.65,-29.8q0.85,-3.85 1.35,-7.65q0,-0.45 0.15,-0.95q0.45,-5.4 0.45,-11.2z" fill="#0099FF"/>
+   </g>
+  </defs>
+  <g stroke="null" id="svg_9">
+   <g stroke="null" transform="matrix(0.2625459579943572,0,0,0.2611789830492421,-996.7348243317076,-677.5871590126072) " id="svg_7">
+    <use fill="#0000ff" stroke="null" x="3709.736687" y="2562.40302" id="svg_8" xlink:href="#svg_4"/>
+   </g>
+  </g>
+  <text stroke="#000" transform="matrix(1.0219233054289218,0,0,1.0112802738637692,-5.585414868372614,-2.6020147257249997) " font-weight="bold" xml:space="preserve" text-anchor="start" font-family="'Times New Roman', Times, serif" font-size="24" id="svg_10" y="97.811005" x="21.935434" stroke-width="0" fill="url(#svg_11)">Mtool</text>
+  <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+
+ </g>
+</svg>
