@@ -1,7 +1,6 @@
-import APIService from '../../assets/map/baidu/MapAPI'
+import APIService from '../../../../assets/map/baidu/MapAPI'
 import async from 'async'
 import * as turf from '@turf/turf'
-import { resolve } from 'path';
 
 class PlaceSearcher {
   constructor () {
@@ -86,6 +85,9 @@ class PlaceSearcher {
         polygon.getPath().forEach((point)=>{
             path.push([point.lng, point.lat])
         })
+        if(((x, y) => x.lng===y.lng&&x.lat===y.lat)(path[0], path[path.length-1])){
+            path.push(path[0]);
+        }
         let poly = turf.polygon([path])
         // 切分外接矩阵，剔除不相关的矩形
         for(let i=0;i<parts;i++){

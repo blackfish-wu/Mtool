@@ -13,8 +13,8 @@ Layout.ivu-layout-has-sider(:style="{ background: '#fff'}")
 
 
 <script>
-import stepsBar from '../parts/Steps'
-import contentHeader from '../parts/Header'
+import stepsBar from '../../../parts/Steps'
+import contentHeader from '../../../parts/Header'
 import PlaceSearcher from './PlaceSearch'
 import {remote} from 'electron'
 import {Parser} from 'json2csv'
@@ -75,6 +75,7 @@ export default {
             this.$Loading.config({height:3})
             this.$Loading.start()
             let keywords = Array.from(new Set(this.keywords.split('，'))) // 分割关键字并去重
+            this.$Loading.update(0);
             let result = {}
             for(let i in keywords){
                 result[keywords[i]] = await placeSearcher.search(this.polygon, keywords[i])
@@ -87,7 +88,6 @@ export default {
             let content = "";
             let that = this;
             for(let keyword in result){
-                console.log(result[keyword].poiList)
                 content += `<p>关键字‘${keyword}’爬取得到的POI数量为: ${result[keyword].poiList.length}</p>`
             }
             this.$Modal.confirm({
@@ -100,7 +100,7 @@ export default {
                         title:"选择保存的文件夹",
                         properties: ["openDirectory"]
                     }, (folderPath) => {
-                        // folderPaths is an array that contains all the selected paths
+                        // 
                         if(folderPath === undefined){
                             console.log("No destination folder selected");
                             return;
@@ -114,22 +114,22 @@ export default {
         },
         saveData: function(result, path){
             const fields  = ['uid', 'name', 'address', 'city', 'location.lat', 'location.lng', 'detail_info.tag', 'detail_info.type'];
-            const json2csvParser = new Parser({ fields });
+            const json2csvParser = new Parser({ fields })
             for(let keyword in result){
-                const csv = json2csvParser.parse(result[keyword].poiList);
+                const csv = json2csvParser.parse(result[keyword].poiList)
                 fs.writeFile(path + "\\" + keyword +".csv", csv, (err) => {
-                    if (err) throw err;
-                    console.log('It\'s saved!');
-                });
+                    if (err) throw err
+                    console.log('It\'s saved!')
+                })
             }
         }
     },
     mounted () {
         let that = this;
         this.map = new BMap.Map("container");
-        this.map.centerAndZoom(new BMap.Point(106.770409, 37.431362), 5);
-        this.map.addControl(new BMap.NavigationControl({type: BMAP_NAVIGATION_CONTROL_SMALL}));
-        this.map.enableScrollWheelZoom();
+        this.map.centerAndZoom(new BMap.Point(106.770409, 37.431362), 5)
+        this.map.addControl(new BMap.NavigationControl({type: BMAP_NAVIGATION_CONTROL_SMALL}))
+        this.map.enableScrollWheelZoom()
         //实例化鼠标绘制工具
         let drawingManager = new BMapLib.DrawingManager(this.map, {
             isOpen: false, //是否开启绘制模式
@@ -140,18 +140,19 @@ export default {
                 drawingModes: [BMAP_DRAWING_POLYGON]
             },
             polygonOptions: {strokeWeight: 2, strokeColor: "#ff0000"}
-        });
+        })
         //添加鼠标绘制工具监听事件，用于获取绘制结果
         drawingManager.addEventListener('overlaycomplete', function(e){
             that.polygon = e.overlay;
             that.currentStep = 1;
-        });
+        })
         this.map.addEventListener("click",function(e){
             if(that.polygon !== null){
                 that.currentStep = 0;
+                that.polygon = null;
                 that.map.clearOverlays();
             }
-        }); 
+        })
     },
     computed: {
     }
