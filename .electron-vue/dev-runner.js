@@ -160,7 +160,7 @@ function greeting () {
       space: false
     })
   } else console.log(chalk.yellow.bold('\n  electron-vue'))
-  console.log(chalk.blue('  getting ready...') + '\n')
+  console.log(chalk.blue('getting ready...') + '\n')
 }
 
 function init () {

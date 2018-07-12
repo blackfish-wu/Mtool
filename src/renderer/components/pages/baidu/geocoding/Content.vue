@@ -6,11 +6,14 @@ Layout.ivu-layout-has-sider(:style="{ background: '#fff'}")
         Layout(:style="{ background: '#fff'}")
             Content
                 Row(type="flex" justify="center" align="middle" style="height:80vh;-webkit-app-region: no-drag")
-                    Col(span="12")
-                        Upload(multiple type="drag" action="#")
-                            div(style="padding: 50px 0" v-on:ondragstart="dropFile")
-                                Icon(type="ios-cloud-upload" size="52" style="color: #3399ff")
-                                p 点击或拖拽文件到这上传
+                    Col(span="6")
+                        // Upload(multiple type="drag" v-on:on-before-upload="dropFile" v-on:before-upload="dropFile" action="''")
+                        Card
+                            div(@click="clickUpload" @ondrop="dropFile")
+                                Row(type="flex" justify="center")
+                                    Icon(type="plus" size="52" style="color:#3399ff")
+                                Row(type="flex" justify="center")
+                                    p 点击或拖拽文件
 </template>
 
 <script>
@@ -49,6 +52,10 @@ export default {
     },
     methods: {
         dropFile(e){
+            console.log(e)
+            return false;
+        },
+        clickUpload(e){
             console.log(e)
         }
     },

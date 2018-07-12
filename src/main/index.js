@@ -28,14 +28,18 @@ function createWindow () {
 
   mainWindow.loadURL(winURL)
 
+  
+
   mainWindow.on('closed', () => {
     mainWindow = null
   })
 
+  mainWindow.webContents.on('will-navigate', (event) => event.preventDefault());
+
 }
 
+
 ipcMain.on('window-min',function(){
-  console.log('window-min');
   mainWindow.minimize();
 })
 

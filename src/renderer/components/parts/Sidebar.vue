@@ -19,6 +19,9 @@ export default {
         menuSelect(name){
             let item = this.menuItems[name]
             this.$router.push(`${item.basePath}/${item.path}`)
+        },
+        open(link){
+            this.$electron.shell.openExternal(link)
         }
     },
     computed:{

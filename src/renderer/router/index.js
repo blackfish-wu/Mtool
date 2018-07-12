@@ -48,8 +48,13 @@ export default new Router({
     baiduRoute,
     amapRoute,
     {
+      path: '/test',
+      name: 'test',
+      component: require(`@/components/test`).default
+    },
+    {
       path: '*',
-      redirect: '/baidu/geocoding'
+      redirect: '/test'
     }
   ]
 })
