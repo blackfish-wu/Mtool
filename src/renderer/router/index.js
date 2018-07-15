@@ -47,14 +47,14 @@ export default new Router({
   routes: [
     baiduRoute,
     amapRoute,
-    {
-      path: '/test',
-      name: 'test',
-      component: require(`@/components/test`).default
-    },
+    // {
+    //   path: '/test',
+    //   name: 'test',
+    //   component: require(`@/components/test`).default
+    // },
     {
       path: '*',
-      redirect: '/test'
+      redirect: '/baidu/searchpoi'
     }
   ]
 })
