@@ -6,7 +6,7 @@
   "license": null,
   "main": "./dist/electron/main.js",
   "scripts": {
-    "build": "node .electron-vue/build.js && electron-builder",
+    "build": "node --max_old_space_size=3072 .electron-vue/build.js && electron-builder",
     "build:dir": "node .electron-vue/build.js && electron-builder --dir",
     "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
     "build:web": "cross-env BUILD_TARGET=web node .electron-vue/build.js",
@@ -58,6 +58,7 @@
     "iconv-lite": "^0.4.23",
     "iview": "^2.14.3",
     "jschardet": "^1.6.0",
+    "json2csv": "^4.1.6",
     "node-xlsx": "^0.12.1",
     "papaparse": "^4.5.0",
     "vue": "^2.3.3",

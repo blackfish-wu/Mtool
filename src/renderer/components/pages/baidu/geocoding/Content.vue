@@ -14,19 +14,25 @@ Layout.ivu-layout-has-sider(:style="{ background: '#fff'}")
                                     Icon(type="plus" size="52" style="color:#3399ff")
                                 Row(type="flex" justify="center")
                                     p 点击或拖拽文件
-            div(v-if="currentStep === 1")
+            div(v-if="currentStep === 1||currentStep === 2")
+                Row(:style="{margin: '12px'}" type="flex" justify="space-between" align="middle")
+                    Select(v-model="tableInfo.addressIndex" style="width:200px" placeholder="请选择地址文本所在列")
+                        Option(v-for="item,index in tableInfo.columns" :value="index" :key="item.title") {{ item.title }}
+                    Select(v-model="tableInfo.cityIndex" style="width:200px" placeholder="请选择城市所在列")
+                        Option(v-for="item,index in tableInfo.columns" :value="index" :key="item.title") {{ item.title }}
+                    Select(v-model="tableInfo.hasColumnName" style="width:150px" placeholder="是否包含列标题")
+                        Option(:value="1" :key="1") 是
+                        Option(:value="0" :key="0") 否
+                    Button(@click="geocode") 开始正向地理编码
                 Row(:style="{margin: '12px'}")
                     Col
-                        Select(v-model="selected" style="width:200px")
-                            Option(v-for="item,index in columns" :value="index" :key="item.title") {{ item.title }}
-                Row(:style="{margin: '12px'}")
-                    Col
-                        Table(:style="{height:'80vh'}" :columns="columns"  :data="data")
+                        Table(:style="{height:'80vh'}" :columns="tableInfo.columns"  :data="tableInfo.data")
 </template>
 
 <script>
 import stepsBar from '../../../parts/Steps'
 import contentHeader from '../../../parts/Header'
+import Geocoder from './Geocoder'
 import dragDrop from 'drag-drop'
 import xlsx from 'node-xlsx'
 import Papa from 'papaparse'
@@ -39,11 +45,16 @@ export default {
     components: {contentHeader, stepsBar},
     data(){
         return {
-            map: null,
-            columns: [],
-            data: [],
-            selected: null,
             currentStep: 0,
+            geocoder: new Geocoder(),
+            fileData: null,
+            tableInfo:{
+                addressIndex: null,
+                cityIndex: null,
+                columns: [],
+                data: [],
+                hasColumnName: null,
+            },
             steps:[
                 {
                     id: 1,
@@ -74,7 +85,7 @@ export default {
                 // 
                 if(filePath === undefined){
                     console.log("No destination folder selected");
-                    return;
+                    return
                 }else{
                     that.showData(filePath[0])
                 }
@@ -85,27 +96,24 @@ export default {
             const fileType=path.substr(path.lastIndexOf('.')+1, path.length) //文件类型
             if(fileType==="xlsx" || fileType==="xls"){
                 const worksheet = xlsx.parse(path)
-                console.log(worksheet[0].data)
                 that.addData2Table(worksheet[0].data)
                 that.currentStep ++
             }else if(fileType==="csv" || fileType==="txt"){
                 this.detectCoding(path).then((contentStr) => {
                     Papa.parse(contentStr, {
                         complete:(results) => {
-                            console.log("Finished:", results.data)
                             that.addData2Table(results.data)
                             that.currentStep ++
                         }
                     })
                 })
-                
             }else{
                 this.$Notice.error({title: '不支持该文件类型'})
             }
         },
         detectCoding(path){
             return new Promise((resolve) => {
-                let rs = fs.createReadStream(path)
+                const rs = fs.createReadStream(path)
                 let chunks = []
                 let size = 0
                 rs.on('data', (chunk) => {
@@ -122,23 +130,34 @@ export default {
         },
         addData2Table(data){
             const that = this
-            this.columns = []
-            this.data = []
+            this.fileData = data
             data[0].forEach((cell) => {
-                that.columns.push({title:cell, key:cell})
+                that.tableInfo.columns.push({title:cell, key:cell})
             })
-            console.log(this.columns)
             for(let i=1;i<20&&i<data.length;i++){
                 let tempObj = {}
                 data[i].forEach((cell, index) => {
                     tempObj[data[0][index]] = cell
                 })
-                that.data.push(tempObj)
+                that.tableInfo.data.push(tempObj)
             }
+        },
+        geocode(){
+            if(this.tableInfo.addressIndex===null){
+                this.$Notice.error({title:'请选择文本地址列'})
+                return
+            }
+            this.currentStep = 2
+            this.geocoder.geocode4tableData(this.fileData.slice(1), this.tableInfo.addressIndex, this.tableInfo.cityIndex)
+            .then((result) => {
+                console.log(result)
+            })
+        },
+        saveData(){
+
         }
     },
     mounted () {
-        console.log(this.columns)
         let that = this
         dragDrop('#drag-file', function (files, pos, fileList, directories) {
             that.showData(files[0].path)
@@ -146,6 +165,21 @@ export default {
         
     },
     computed: {
+
+    },
+    watch: {
+        currentStep: (newStep, oldStep) => {
+            if(newStep===0){
+                this.tableInfo = {
+                    addressIndex: null,
+                    cityIndex: null,
+                    columns: [],
+                    data: [],
+                }
+            }else if(newStep===2){
+                
+            }
+        }
     }
 }
 </script>
