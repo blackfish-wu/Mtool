@@ -54,7 +54,7 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: '/test'
+      redirect: '/baidu/searchpoi'
     }
   ]
 })
