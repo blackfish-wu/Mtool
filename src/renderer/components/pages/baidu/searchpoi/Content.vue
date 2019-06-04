@@ -102,10 +102,9 @@ export default {
                     }, (folderPath) => {
                         // 
                         if(folderPath === undefined){
-                            console.log("No destination folder selected");
+                            this.$Notice.error({title: '没有选择文件夹'})
                             return;
                         }else{
-                            console.log(folderPath);
                             that.saveData(result, folderPath)
                         }
                     })
@@ -119,9 +118,9 @@ export default {
                 const csv = json2csvParser.parse(result[keyword].poiList)
                 fs.writeFile(path + "\\" + keyword +".csv", csv, (err) => {
                     if (err) throw err
-                    console.log('It\'s saved!')
                 })
             }
+            this.$Notice.success({title: '保存成功'})
         }
     },
     mounted () {

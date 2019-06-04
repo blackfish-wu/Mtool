@@ -3,17 +3,18 @@ import async from 'async'
 import * as turf from '@turf/turf'
 
 class PlaceSearcher {
-  constructor () {
-    this.service = new APIService()
-  }
+    constructor () {
+        this.service = new APIService()
+    }
 
-  search (polygon, keyword, keys = [ "MviPFAcx5I6f1FkRQlq6iTxc" ]) {
+    search (polygon, keyword, keys = [ "MviPFAcx5I6f1FkRQlq6iTxc" ]) {
         return new Promise((resolve) => {
-            let bounds = this._segmentBound(polygon, 10)
-            let that = this
-            async.mapLimit(bounds, 10, function (bound, callback) {
+            const bounds = this._segmentBound(polygon, 10)
+            const that = this
+            async.mapLimit(bounds, 10, (bound, callback) => {
                 that._placeSerarch(bound, keyword, keys, callback)
-            }, function (err, result) {
+            }, (err, result) => {
+                if (err) throw err
                 let poiDict = {}
                 let successfulBounds = []
                 let zeroBounds = []
@@ -43,7 +44,7 @@ class PlaceSearcher {
         let queue = [bound] // 使用矩形范围初始栈
         let zeroBounds = [] //用以存放返回值为0的矩形范围
         let successfulBounds = []
-        let that = this
+        const that = this
         let poiList = []
         while(queue.length !== 0){
             let tempBound = queue.pop() //取出一个查询范围
@@ -52,7 +53,6 @@ class PlaceSearcher {
             let response = await this.service.place_search(keys[0], keyword, boundStr)
             if(response.hasOwnProperty("data")&&response.data.hasOwnProperty("results")){
                 let results = response.data.results
-                console.log(results.length)
                 if(results.length >= 10){
                     if((bound[2] - bound[0])<0.001||(bound[3]-bound[1])<0.001)
                         continue;

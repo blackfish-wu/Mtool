@@ -1,5 +1,6 @@
 <template lang="pug">
-    Row.code-row-bg(type='flex', justify='end', :style="{padding: '5px'}")
+Header(:style="{background: '#fff', padding: '0px', position:'fix', height: '50px'}")
+    Row.code-row-bg(type='flex', justify='end', :style="{padding: '5px', position:'relative'}")
         ButtonGroup(size="large" style="-webkit-app-region: no-drag")
             Button.no-border(type='ghost', icon='gear-a')
             Button.no-border(type='ghost', icon='ios-minus-empty' v-on:click="clickMinWd")
