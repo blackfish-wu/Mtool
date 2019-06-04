@@ -1,12 +1,12 @@
 {
   "name": "Mtool",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "author": "",
   "description": "An electron-vue project",
   "license": null,
   "main": "./dist/electron/main.js",
   "scripts": {
-    "build": "node --max_old_space_size=3072 .electron-vue/build.js && electron-builder",
+    "build": "node .electron-vue/build.js && electron-builder",
     "build:dir": "node .electron-vue/build.js && electron-builder --dir",
     "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
     "build:web": "cross-env BUILD_TARGET=web node .electron-vue/build.js",
@@ -18,7 +18,14 @@
   },
   "build": {
     "productName": "Mtool",
-    "appId": "org.simulatedgreg.electron-vue",
+    "appId": "org.blackfish.mtool",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "blackfish-wu",
+        "repo": "Mtool"
+      }
+    ],
     "directories": {
       "output": "build"
     },
@@ -53,15 +60,13 @@
   "dependencies": {
     "@turf/turf": "^5.1.6",
     "async": "^2.6.1",
-    "axios": "^0.16.1",
+    "axios": "^0.19.0",
     "drag-drop": "^4.2.0",
-    "iconv-lite": "^0.4.23",
+    "electron-updater": "^3.2.3",
     "iview": "^2.14.3",
-    "jschardet": "^1.6.0",
-    "json2csv": "^4.1.6",
-    "node-xlsx": "^0.12.1",
-    "papaparse": "^4.5.0",
+    "json2csv": "^4.1.5",
     "vue": "^2.3.3",
+    "vue-amap": "^0.5.9",
     "vue-electron": "^1.0.6",
     "vue-router": "^2.5.3",
     "vuex": "^2.3.1"

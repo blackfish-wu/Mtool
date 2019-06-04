@@ -1,12 +1,12 @@
 # Mtool
 
-> [Mtool](https://github.com/blackfish-wu/Mtool)  一个方便你使用地图Web服务(百度、高德)的工具
+> [Mtool](https://github.com/blackfish-wu/Mtool)  一个方便你使用地图Web服务(百度、高德)的工具，包括地理编码、POI爬虫等
 
 ### Build Setup
 
 ``` bash
-# 安装依赖
-npm install
+# 安装依赖 用npm安装会出错
+yarn install 
 
 # 运行
 npm run dev
