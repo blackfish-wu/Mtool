@@ -59,7 +59,7 @@
   },
   "dependencies": {
     "@turf/turf": "^5.1.6",
-    "async": "^2.6.1",
+    "async": "^2.6.4",
     "axios": "^0.19.0",
     "drag-drop": "^4.2.0",
     "electron-updater": "^3.2.3",
